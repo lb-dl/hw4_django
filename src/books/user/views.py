@@ -1,9 +1,13 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from user.utils import generate_random_password
+# from django.shortcuts import render
 from user.models import User
-from faker import Faker
+from user.utils import generate_random_password
+
 from book.models import Book
+
+from django.http import HttpResponse
+
+from faker import Faker
+
 
 def generate_password(request):
 
@@ -12,13 +16,15 @@ def generate_password(request):
 
     return HttpResponse(str(result))
 
+
 def users(request):
 
     users = User.objects.all()
-    results =''
+    results = ''
     for user in users:
         results += f'ID: {user.id}, Email: {user.email}'
     return HttpResponse(results)
+
 
 def create_user(request):
     fake = Faker()
@@ -29,6 +35,7 @@ def create_user(request):
     )
     return HttpResponse(f'ID: {user.id}, Email: {user.email}')
 
+
 def create_books(request):
     fake = Faker()
     book = Book.objects.create(
@@ -37,12 +44,10 @@ def create_books(request):
     )
     return HttpResponse(f'Author: {book.author}, title: {book.title}')
 
+
 def book_list(request):
     all_books = Book.objects.all()
     results = ''
     for book in all_books:
         results += f'Author: {book.author}, title: {book.title}'
     return HttpResponse(results)
-
-
-
