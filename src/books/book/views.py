@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+# from django.shortcuts import render, get_object_or_404
 
 from book.models import Book
+
+from django.http import HttpResponse
+
 from faker import Faker
 
 
@@ -20,6 +22,7 @@ def book_list(request):
     for book in all_books:
         results += f'Author: {book.author}, title: {book.title}'
     return HttpResponse(results)
+
 
 def create_a_book(request):
 

@@ -1,11 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from user.models import User
 from user.forms import UserForms
+from user.models import User
 from user.utils import generate_random_password
 
 from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 
-from faker import Faker
+# from faker import Faker
 
 
 def generate_password(request):
@@ -33,8 +33,9 @@ def create_user(request):
             return HttpResponseRedirect('/users/')
     elif request.method == 'GET':
         form = UserForms()
-    context = {'user_form' : form}
-    return render(request, 'create_user.html', context = context)
+    context = {'user_form': form}
+    return render(request, 'create_user.html', context=context)
+
 
 def update_user(request, pk):
     user = get_object_or_404(User, pk=pk)
@@ -46,11 +47,4 @@ def update_user(request, pk):
     elif request.method == 'GET':
         form = UserForms(instance=user)
     context = {'user_form': form}
-    return render(request, 'create_user.html', context = context)
-
-
-
-
-
-
-
+    return render(request, 'create_user.html', context=context)
