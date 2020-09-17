@@ -17,6 +17,7 @@ Including another URLconf
 # from user import views as uv
 # from django.contrib import admin
 from user import views as uv
+from book import views as bv
 
 from django.urls import path
 
@@ -25,6 +26,8 @@ urlpatterns = {
     path('gp/', uv.generate_password),
     path('users/', uv.users),
     path('cu/', uv.create_user),
-    path('books/list/', uv.book_list),
-    path('books/create/', uv.create_books),
+    path('books/list/', bv.book_list),
+    path('books/create/', bv.create_books),
+    path('uu/<int:pk>/', uv.update_user),
+    path('cab/', bv.create_a_book),
 }

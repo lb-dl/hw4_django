@@ -1,10 +1,9 @@
-# from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from user.models import User
+from user.forms import UserForms
 from user.utils import generate_random_password
 
-from book.models import Book
-
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from faker import Faker
 
@@ -27,27 +26,31 @@ def users(request):
 
 
 def create_user(request):
-    fake = Faker()
-    user = User.objects.create(
-        email=fake.email(),
-        first_name=fake.first_name(),
-        last_name=fake.last_name()
-    )
-    return HttpResponse(f'ID: {user.id}, Email: {user.email}')
+    if request.method == 'POST':
+        form = UserForms(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/users/')
+    elif request.method == 'GET':
+        form = UserForms()
+    context = {'user_form' : form}
+    return render(request, 'create_user.html', context = context)
+
+def update_user(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    if request.method == 'POST':
+        form = UserForms(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/users/')
+    elif request.method == 'GET':
+        form = UserForms(instance=user)
+    context = {'user_form': form}
+    return render(request, 'create_user.html', context = context)
 
 
-def create_books(request):
-    fake = Faker()
-    book = Book.objects.create(
-        author=fake.first_name(),
-        title=fake.last_name()
-    )
-    return HttpResponse(f'Author: {book.author}, title: {book.title}')
 
 
-def book_list(request):
-    all_books = Book.objects.all()
-    results = ''
-    for book in all_books:
-        results += f'Author: {book.author}, title: {book.title}'
-    return HttpResponse(results)
+
+
+
