@@ -31,4 +31,6 @@ urlpatterns = {
     path('books/create/', bv.create_books),
     path('uu/<int:pk>/', uv.update_user),
     path('cab/', bv.create_a_book),
+    path('uab/<int:pk>/', bv.update_a_book),
+    path('dab/<int:pk>/', bv.delete_a_book)
 }
