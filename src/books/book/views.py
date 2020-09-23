@@ -17,11 +17,8 @@ def create_books(request):
 
 
 def book_list(request):
-    all_books = Book.objects.all()
-    results = ''
-    for book in all_books:
-        results += f'Author: {book.author}, title: {book.title}'
-    return HttpResponse(results)
+    context = {'book_list': Book.objects.all(), }
+    return render(request, 'books_list.html', context)
 
 
 def create_a_book(request):

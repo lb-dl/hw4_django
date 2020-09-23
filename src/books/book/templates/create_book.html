@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create a new book</title>
-</head>
-<body>
+{%extends 'base.html' %}
+{%block content%}
+<p>
+    <a href="{% url 'books_list' %}">List of all books</a>
+</p>
 <form method = 'post'>
     {%csrf_token%}
     {{book_form.as_p}}
     <button type="submit">SEND</button>
 </form>
-
-</body>
-</html>
+{%endblock content%}

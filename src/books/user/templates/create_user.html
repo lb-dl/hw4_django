@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>CrearUsers</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+{{user_instance.id}}
+{{user_instance.last_name}}
+{{user_instance.first_name}}
+{{user_instance.age}}
+
+{{user.instance.full_name}}
+
 <form method="post">
     {% csrf_token %}
     {{user_form.as_p}}
     <button type="submit">SEND</button>
 </form>
 
-</body>
-</html>
+{% endblock content %}

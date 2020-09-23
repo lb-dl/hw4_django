@@ -1,36 +1,31 @@
-"""books URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-# from django.urls import path
-# from user import views as uv
 # from django.contrib import admin
 from user import views as uv
 
 from book import views as bv
 
-from django.urls import path
+from django.conf import settings
+from django.urls import include, path
+from django.views.generic import TemplateView
 
-urlpatterns = {
+
+urlpatterns = [
 
     path('gp/', uv.generate_password),
-    path('users/', uv.users),
-    path('cu/', uv.create_user),
-    path('books/list/', bv.book_list),
+    path('users/', uv.users, name='users_name'),
+    path('cu/', uv.create_user, name='users_create'),
+    path('books/list/', bv.book_list, name='books_list'),
     path('books/create/', bv.create_books),
-    path('uu/<int:pk>/', uv.update_user),
-    path('cab/', bv.create_a_book),
-    path('uab/<int:pk>/', bv.update_a_book),
-    path('dab/<int:pk>/', bv.delete_a_book)
-}
+    path('uu/<int:pk>/', uv.update_user, name='users_update'),
+    path('cab/', bv.create_a_book, name='books_create'),
+    path('uab/<int:pk>/', bv.update_a_book, name='books_update'),
+    path('dab/<int:pk>/', bv.delete_a_book),
+    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+
+]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__deb'
+             'ug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
