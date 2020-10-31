@@ -52,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'user.middlewares.SimpleMiddleware',
+    'user.middlewares.GoogleLead',
 ]
 
 ROOT_URLCONF = 'books.urls'

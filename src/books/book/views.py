@@ -1,5 +1,5 @@
 from book.forms import BookForms
-from book.models import Book
+from book.models import Book, Category
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -17,7 +17,8 @@ def create_books(request):
 
 
 def book_list(request):
-    context = {'book_list': Book.objects.all(), }
+    context = {'book_list': Book.objects.all().select_related('category')}
+
     return render(request, 'books_list.html', context)
 
 
@@ -39,7 +40,7 @@ def update_a_book(request, pk):
         form = BookForms(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/books/list/')
+            return render(request, 'books_list.html')
     elif request.method == 'GET':
         form = BookForms(instance=book)
     context = {'book_form': form}
@@ -60,3 +61,9 @@ def delete_a_book(request, pk):
         form = BookForms()
     context = {'book_form': form}
     return render(request, 'create_book.html', context=context)
+
+
+def category_list(request):
+    context = {'category_list': Category.objects.all().prefetch_related('book')}
+
+    return render(request, 'category_list.html', context)

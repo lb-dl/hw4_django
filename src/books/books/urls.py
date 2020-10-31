@@ -14,6 +14,7 @@ urlpatterns = [
     path('users/', uv.users, name='users_name'),
     path('cu/', uv.create_user, name='users_create'),
     path('books/list/', bv.book_list, name='books_list'),
+    path('categories/list/', bv.category_list, name='categories_list'),
     path('books/create/', bv.create_books),
     path('uu/<int:pk>/', uv.update_user, name='users_update'),
     path('cab/', bv.create_a_book, name='books_create'),
@@ -26,6 +27,5 @@ urlpatterns = [
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
-        path('__deb'
-             'ug__/', include(debug_toolbar.urls)),
+        path('__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns

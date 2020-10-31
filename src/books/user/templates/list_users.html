@@ -10,7 +10,12 @@
     </p>
     {% for user in user_list %}
         <p>
-           <a href = "{%url 'users_update' pk=user.id%}">ID: {{user.id}}</a>, Full name: {{user.full_name}}
+           <a href = "{%url 'users_update' pk=user.id%}">
+               ID: {{user.id}}
+           </a>,
+               Full name: {{user.full_name}}
+               Books Count : {{ user.books.count }}
+
         </p>
     {%endfor %}
 {% endblock content %}

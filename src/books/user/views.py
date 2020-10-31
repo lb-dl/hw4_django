@@ -17,7 +17,8 @@ def generate_password(request):
 
 
 def users(request):
-    context = {'user_list': User.objects.all(), }
+    users_queryset = User.objects.all().prefetch_related('books')
+    context = {'user_list': users_queryset, }
     return render(request, 'list_users.html', context)
 
 

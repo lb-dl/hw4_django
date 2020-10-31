@@ -9,9 +9,11 @@
         <a href = "{% url 'books_update' pk=book.id %}">
             Book ID: {{ book.id }}
         </a>,
-        Author: {{ book.author }},
-        Title: {{ book.title }},
-        Year: {{ book.year }}
+        <!--Author: {{ book.author }},-->
+        <!--Title: {{ book.title }},-->
+        <!--Year: {{ book.year }}-->
+        <!--User's email: {{ book.users.email }}-->
+        Book's category: {{ book.category.name }}
     </p>
 {% endfor %}
 {% endblock content %}
