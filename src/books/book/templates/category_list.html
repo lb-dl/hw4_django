@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>LIST OF ALL CATEGORIES</h3>
+
+{% for category in category_list %}
+    <p>
+        Category ID: {{ category.id }}
+        CATEGORY: {{ category.name}},
+        Books Count: {{ category.book.count }}
+    </p>
+{% endfor %}
+{% endblock content %}

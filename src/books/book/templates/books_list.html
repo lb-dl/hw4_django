@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>LIST OF ALL BOOKS</h3>
+<p>
+    <a href="{% url 'books_create' %}">ADD A NEW BOOK</a>
+</p>
+{% for book in book_list %}
+    <p>
+        <a href = "{% url 'books_update' pk=book.id %}">
+            Book ID: {{ book.id }}
+        </a>,
+        <!--Author: {{ book.author }},-->
+        <!--Title: {{ book.title }},-->
+        <!--Year: {{ book.year }}-->
+        <!--User's email: {{ book.users.email }}-->
+        Book's category: {{ book.category.name }}
+    </p>
+{% endfor %}
+{% endblock content %}
